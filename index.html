@@ -1,6 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AsukaArcueid Home</title>
+    <style>
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        /* 中间的主标题 */
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        /* 初始隐藏的板块容器 */
+        .menu-items {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            opacity: 0; /* 默认透明度为0 */
+            transform: translateY(-10px); /* 默认稍微向上位移 */
+            transition: all 0.4s ease; /* 动画过渡效果 */
+            pointer-events: none; /* 隐藏时不可点击 */
+        }
+
+        /* 鼠标移到 container 上时触发显示 */
+        .container:hover .menu-items {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* 板块样式 */
+        .item {
+            text-decoration: none;
+            color: #666;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .item:hover {
+            background: #eee;
+            color: #007bff;
+        }
+    </style>
+</head>
 <body>
-  <h1>test</h1>
+
+    <div class="container">
+        <div class="main-title">AsukaArcueid的主页</div>
+        
+        <div class="menu-items">
+            <a href="#" class="item">项目 (Projects)</a>
+            <a href="#" class="item">课程 (Courses)</a>
+            <a href="#" class="item">Biography</a>
+        </div>
+    </div>
+
 </body>
 </html>
