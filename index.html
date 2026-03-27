@@ -3,114 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AsukaArcueid | Digital Space</title>
+    <title>AsukaArcueid | Personal Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Noto+Sans+SC:wght@300&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 调色盘：极地蓝与深海黑的融合 */
-            --bg-main: #0a0e14;
-            --blue-glow: rgba(0, 157, 255, 0.4);
-            --glass: rgba(255, 255, 255, 0.05);
-            --text-cyan: #00d2ff;
+            /* 调浅后的配色：冰川蓝渐变 */
+            --bg-light: #e0eafc;
+            --bg-dark: #cfdef3;
+            --accent-blue: #4facfe;
+            --text-color: #2d3436;
+            --glass-white: rgba(255, 255, 255, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-main);
-            /* 使用径向渐变消除背景割裂感，模拟深邃的屏幕光感 */
-            background-image: radial-gradient(circle at center, #1a2a3a 0%, #0a0e14 100%);
+            /* 浅蓝色柔和渐变 */
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Noto Sans SC', sans-serif;
             overflow: hidden;
-            color: white;
         }
 
-        /* 核心交互区域 */
         .hero-container {
             position: relative;
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* 呼吸背景光，增加氛围而不晃动 */
-        .hero-container::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--blue-glow);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: 0;
-            opacity: 0.3;
-        }
-
-        /* 主标题：常态显示 */
+        /* 主标题：使用了 Orbitron 字体，更有设计感 */
         .main-title {
-            font-size: 2.8rem;
-            font-weight: 200;
-            letter-spacing: 0.2rem;
-            color: var(--text-cyan);
-            text-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-            transition: all 0.6s ease-in-out;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-color);
+            letter-spacing: 4px;
+            cursor: default;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 2;
         }
 
-        /* 导航层：初始隐藏，中心重叠 */
+        /* 悬停时的导航层 */
         .nav-layer {
             position: absolute;
             display: flex;
-            gap: 20px;
+            gap: 40px;
             opacity: 0;
-            transform: scale(0.95);
+            transform: scale(0.8);
             transition: all 0.5s ease;
             pointer-events: none;
             z-index: 3;
         }
 
-        /* 圆形板块样式 */
         .nav-item {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px); /* 毛玻璃效果 */
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            color: #fff;
-            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         .nav-item:hover {
-            background: rgba(0, 210, 255, 0.15);
-            border-color: var(--text-cyan);
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.3);
+            color: var(--accent-blue);
         }
 
         .nav-item span {
-            font-size: 0.7rem;
-            opacity: 0.6;
-            margin-top: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            margin-top: 5px;
             letter-spacing: 1px;
+            opacity: 0.5;
         }
 
-        /* 触发交互：原地替换 */
+        /* 交互逻辑 */
         .hero-container:hover .main-title {
             opacity: 0;
-            transform: scale(1.1);
-            filter: blur(10px);
+            filter: blur(20px);
+            transform: scale(1.2);
         }
 
         .hero-container:hover .nav-layer {
@@ -118,12 +106,31 @@
             transform: scale(1);
             pointer-events: auto;
         }
+
+        /* 背景装饰点缀：浅色的漂浮圆圈 */
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.4;
+            filter: blur(50px);
+            z-index: 1;
+            animation: float 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
+        }
     </style>
 </head>
 <body>
 
+    <div class="decoration" style="width: 200px; height: 200px; top: 10%; left: 10%;"></div>
+    <div class="decoration" style="width: 300px; height: 300px; bottom: 10%; right: 5%; animation-delay: -2s;"></div>
+
     <div class="hero-container">
-        <h1 class="main-title">AsukaArcueid的主页</h1>
+        <h1 class="main-title">AsukaArcueid</h1>
 
         <nav class="nav-layer">
             <a href="#projects" class="nav-item">
@@ -135,7 +142,7 @@
                 <span>COURSES</span>
             </a>
             <a href="#bio" class="nav-item">
-                简历
+                简介
                 <span>BIO</span>
             </a>
         </nav>
