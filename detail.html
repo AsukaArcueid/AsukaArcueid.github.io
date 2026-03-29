@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | AsukaArcueid</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <style>
+        /* 1. 严格沿用主页定义的变量 */
+        :root { 
+            --bg-light: #e0eafc;
+            --bg-dark: #cfdef3;
+            --accent-blue: #4facfe;
+            --text-color: #2d3436;
+            --glass-white: rgba(255, 255, 255, 0.6);
+            --code-bg: #1e1e1e; 
+        }
+
+        /* 2. 背景设为与主页一致的渐变 */
+        body { 
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
+            font-family: 'Noto Sans SC', sans-serif; 
+            padding: 40px 20px; 
+            line-height: 1.8; 
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* 3. 容器：移除 backdrop-filter 以修复滚动条白框 Bug */
+        .container { 
+            max-width: 900px; 
+            margin: 60px auto; 
+            background: white; /* 这里改回纯白，避免滤镜干扰滚动条 */
+            padding: 60px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 4. BACK 按钮：完全匹配主页 nav-item 逻辑 */
+        .back-btn { 
+            position: fixed; 
+            top: 30px; 
+            left: 30px; 
+            padding: 12px 30px; 
+            background: var(--glass-white); 
+            backdrop-filter: blur(10px);
+            border-radius: 50px; 
+            text-decoration: none; 
+            color: var(--text-color); 
+            font-family: 'Orbitron'; 
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); 
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+        }
+
+        .back-btn:hover { 
+            background: white; 
+            color: var(--accent-blue); 
+            transform: translateY(-5px); /* 向上弹起 */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* --- 验证正确的滚动条样式区 --- */
+        #article-body pre {
+            background-color: var(--code-bg) !important;
+            padding: 20px;
+            padding-bottom: 15px; 
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid #333;
+            scrollbar-width: thin;
+            scrollbar-color: #555 transparent;
+        }
+
+        #article-body pre code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            display: block;
+            white-space: pre;
+            background: transparent !important;
+        }
+
+        #article-body pre::-webkit-scrollbar {
+            height: 8px;
+            background-color: transparent;
+        }
+
+        #article-body pre::-webkit-scrollbar-track {
+            background-color: transparent !important;
+            border-radius: 10px;
+        }
+
+        #article-body pre::-webkit-scrollbar-thumb {
+            background-color: #555; 
+            border-radius: 10px;
+            border: 2px solid var(--code-bg);  
+            background-clip: content-box;  
+        }
+
+        #article-body pre::-webkit-scrollbar-thumb:hover {
+            background-color: #888; 
+        }
+
+        #article-body pre::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+        /* --- 滚动条样式结束 --- */
+
+        /* 内容文字样式 */
+        #article-body h1, #article-body h2, #article-body h3 { font-family: 'Orbitron', 'Noto Sans SC'; color: var(--text-color); margin-top: 1.5em; }
+        #article-body h2 { border-left: 5px solid var(--accent-blue); padding-left: 15px; }
+        #article-body p { margin-bottom: 1.5em; color: #444; }
+        #article-body img { max-width: 100%; border-radius: 12px; margin: 30px auto; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        #article-body :not(pre) > code { background-color: #f0f2f5; color: #e06c75; padding: 2px 6px; border-radius: 4px; }
+        .loading-tip { text-align: center; color: #999; padding: 50px; font-family: 'Orbitron'; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html#projects" class="back-btn">← BACK</a>
+
+    <div class="container">
+        <h1 id="title" style="font-family:'Orbitron'; margin-bottom:10px;">Loading...</h1>
+        <p id="meta" style="color:#888; margin-bottom:40px; font-family: 'Orbitron'; font-size: 0.85em;"></p>
+        
+        <div id="article-body">
+            <p class="loading-tip">INITIALIZING...</p>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+        const data = getProjectById(projectId);
+
+        if (data) {
+            document.title = `${data.title} | Detail`;
+            document.getElementById('title').innerText = data.title;
+            document.getElementById('meta').innerText = `TS_DATE: ${data.date} // ID: #${data.id}`;
+
+            fetch(data.path)
+                .then(response => {
+                    if (!response.ok) throw new Error("文件加载失败");
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById('article-body').innerHTML = marked.parse(text);
+                    hljs.highlightAll();
+                })
+                .catch(err => {
+                    document.getElementById('article-body').innerHTML = `<p style="color:red; text-align:center;">错误: ${err.message}</p>`;
+                });
+        } else {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
