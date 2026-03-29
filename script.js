@@ -4,23 +4,31 @@ function initRouting() {
     const projects = document.getElementById('projects-screen');
     
     // 小技巧：暂时关闭 CSS 动画，防止切换时出现“渐变闪烁”
-    home.style.transition = 'none';
-    projects.style.transition = 'none';
+    if (home) home.style.transition = 'none';
+    if (projects) projects.style.transition = 'none';
 
     // 根据网址是否有 #projects 决定显示哪一页
     if (window.location.hash === '#projects') {
-        home.classList.add('hidden');
-        projects.classList.remove('hidden');
+        if (home) home.classList.add('hidden');
+        if (projects) projects.classList.remove('hidden');
         renderProjects();
+        // 关键点：进入项目页时的标题
+        document.title = "AsukaArcueid | Projects";
     } else {
-        home.classList.remove('hidden');
-        projects.classList.add('hidden');
+        if (home) home.classList.remove('hidden');
+        if (projects) projects.classList.add('hidden');
+        // 关键点：主页封面时的标题
+        document.title = "AsukaArcueid";
     }
 
     // 强制浏览器重绘，然后恢复动画
-    void home.offsetWidth;
-    home.style.transition = '';
-    projects.style.transition = '';
+    if (home) {
+        void home.offsetWidth;
+        home.style.transition = '';
+    }
+    if (projects) {
+        projects.style.transition = '';
+    }
 }
 
 // 脚本加载后立即执行一次路由检查
@@ -33,15 +41,18 @@ window.addEventListener('hashchange', initRouting);
 
 // 页面切换
 function showProjects() {
-    window.location.hash = 'projects'; // 改写 Hash 自动触发 initRouting
+    // 改写 Hash 会自动触发 initRouting，从而改变标题
+    window.location.hash = 'projects'; 
 }
 
 function backToHome() {
-    history.replaceState(null, null, ' '); // 清除 Hash
-    initRouting(); // 手动触发更新回主页
+    // 清除 Hash 标记
+    history.replaceState(null, null, ' '); 
+    // 手动触发更新回主页状态
+    initRouting(); 
 }
 
-// 动态渲染：使用来自 db.js 的数据
+// 动态渲染：使用来自 db.js 的数据 (保持不变)
 function renderProjects() {
     const grid = document.getElementById('projectGrid');
     if(!grid) return;
@@ -58,7 +69,7 @@ function renderProjects() {
     `).join('');
 }
 
-// 跳转逻辑
+// 跳转逻辑 (保持不变)
 function navigateToDetail(id) {
     window.location.href = `detail.html?id=${id}`;
 }
