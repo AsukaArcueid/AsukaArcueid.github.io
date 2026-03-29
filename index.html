@@ -16,7 +16,7 @@
             <h1 class="main-title">AsukaArcueid</h1>
             <nav class="nav-layer">
                 <div class="nav-item" onclick="showProjects()">项目 <span>PROJECTS</span></div>
-                <div class="nav-item">资源 <span>RESOURCES</span></div>
+                <div class="nav-item" onclick="showResources()">资源 <span>RESOURCES</span></div>
                 <div class="nav-item">关于 <span>ABOUT</span></div>
             </nav>
         </div>
@@ -25,6 +25,20 @@
     <div id="projects-screen" class="screen hidden">
         <button onclick="backToHome()" class="back-btn">← BACK</button>
         <div class="project-grid" id="projectGrid"></div>
+    </div>
+
+    <div id="resources-screen" class="screen hidden">
+        <button onclick="backToHome()" class="back-btn">← BACK</button>
+        <div class="filter-bar" id="filterBar"></div>
+        <div class="project-grid" id="resourceGrid"></div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body"></div>
+        </div>
     </div>
 
     <script src="db.js"></script>
