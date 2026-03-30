@@ -42,25 +42,28 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* 4. BACK 按钮：完全匹配主页 nav-item 逻辑 */
-        .back-btn { 
-            position: fixed; 
-            top: 30px; 
-            left: 30px; 
-            padding: 12px 30px; 
-            background: var(--glass-white); 
+        /* 4. BACK 按钮：与主页统一样式 */
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 120px;
+            height: 45px;
+            background: var(--glass-white);
             backdrop-filter: blur(10px);
-            border-radius: 50px; 
-            text-decoration: none; 
-            color: var(--text-color); 
-            font-family: 'Orbitron'; 
-            font-size: 0.85em;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); 
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .back-btn:hover { 

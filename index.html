@@ -11,13 +11,22 @@
     <div class="decoration" style="width: 250px; height: 250px; top: 5%; left: 5%;"></div>
     <div class="decoration" style="width: 400px; height: 400px; bottom: -5%; right: -5%; animation-delay: -2s;"></div>
 
+    <!-- 状态栏：固定在顶部，始终可见 -->
+    <div id="status-bar">
+        <span id="status-left">SYSTEM: ONLINE</span>
+        <span id="clock">00:00:00</span>
+        <span id="status-right">LOC: 31.2397° N, 121.4998° E</span>
+    </div>
+
     <div id="home-screen" class="screen">
+        <div id="barrage-container"></div>
         <div class="hero-container">
             <h1 class="main-title">AsukaArcueid</h1>
+            <p class="sub-title">Breath of the Stars</p>
             <nav class="nav-layer">
                 <div class="nav-item" onclick="navigate('#projects')">项目 <span>PROJECTS</span></div>
                 <div class="nav-item" onclick="navigate('#resources')">资源 <span>RESOURCES</span></div>
-                <div class="nav-item">关于 <span>ABOUT</span></div>
+                <div class="nav-item" onclick="navigate('#about')">关于 <span>ABOUT</span></div>
             </nav>
         </div>
     </div>
@@ -31,6 +40,10 @@
         <button onclick="navigate('')" class="back-btn">← BACK</button>
         <div class="filter-bar" id="filterBar"></div>
         <div class="project-grid" id="resourceGrid"></div>
+    </div>
+
+    <div id="about-screen" class="screen">
+        <button onclick="navigate('')" class="back-btn">← BACK</button>
     </div>
 
     <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
