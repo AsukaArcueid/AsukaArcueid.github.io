@@ -7,7 +7,7 @@ const CONFIG = {
     statusBarLocation: '31.2397° N, 121.4998° E',  // 东方明珠塔
 
     // 弹幕系统
-    barrageSpawnRate: 800,            // 每次生成间隔 (ms)
+    barrageSpawnRate: 900,            // 每次生成间隔 (ms)
     barrageOpacity: 0.2,               // 弹幕透明度 0-1
     barrageFontSizeRange: { min: 0.9, max: 1.5 },   // rem
     barrageSpeedRange: { min: 10, max: 13 },           // 动画时长 (秒)
