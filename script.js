@@ -57,6 +57,9 @@ function createBullet() {
 }
 function startBarrage() {
     if (barrageInterval) return;
+    // 清除页面隐藏期间残留的弹幕（动画暂停，animationend 未触发）
+    const container = document.getElementById('barrage-container');
+    if (container) container.innerHTML = '';
     createBullet();
     barrageInterval = setInterval(createBullet, CONFIG.barrageSpawnRate);
 }
@@ -127,6 +130,16 @@ function navigate(target) {
 
 window.addEventListener('hashchange', initRouting);
 document.addEventListener('DOMContentLoaded', initRouting);
+
+// 页面可见性变化时暂停/恢复弹幕，防止切回来后积攒的定时器一起爆发
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopBarrage();
+    } else if (window.location.hash === '' || window.location.hash === '#' || !window.location.hash) {
+        // 仅在主页可见时，等待1秒后再重启弹幕
+        setTimeout(startBarrage, 1000);
+    }
+});
 
 // --- 渲染项目 (含悬停预览) ---
 function renderProjects() {
