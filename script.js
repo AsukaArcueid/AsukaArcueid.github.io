@@ -107,6 +107,7 @@ function initRouting() {
         stopClock();
         stopBarrage();
         document.getElementById('status-bar').style.display = 'none';
+        renderOrbitSatellites();
     }
     else {
         screens.home.classList.add('active-screen');
@@ -137,7 +138,7 @@ document.addEventListener('visibilitychange', () => {
         stopBarrage();
     } else if (window.location.hash === '' || window.location.hash === '#' || !window.location.hash) {
         // 仅在主页可见时，等待1秒后再重启弹幕
-        setTimeout(startBarrage, 1000);
+        setTimeout(startBarrage, 300);
     }
 });
 
@@ -199,4 +200,75 @@ function openModal(id) {
 
 function closeModal() {
     document.getElementById('modal-overlay').classList.add('hidden');
+}
+function renderOrbitSatellites() {
+    const container = document.getElementById('orbitContainer');
+    if (!container) return;
+
+    // 清除旧卫星
+    container.querySelectorAll('.satellite-group').forEach(s => s.remove());
+
+    const total = HEADING_DB.length;
+    if (total === 0) return;
+
+    // --- 全局配置 ---
+    const globalDuration = 30; // 统一角速度：30秒转一圈
+    const angleStep = 360 / total; // 全局平分角度：所有卫星间距一致
+
+    const innerCount = total <= 3 ? total : Math.floor(total * 0.4);
+    const orbitConfigs = [
+        { count: innerCount, radius: 188, className: 'orbit-ring-1' },
+        { count: total - innerCount, radius: 248, className: 'orbit-ring-2' }
+    ];
+
+    let globalIndex = 0; // 使用全局索引来计算角度
+
+    orbitConfigs.forEach((config) => {
+        const { count, className } = config;
+        
+        for (let i = 0; i < count; i++) {
+            const heading = HEADING_DB[globalIndex];
+            if (!heading) break;
+
+            // 核心修改：基于全局索引计算角度，确保所有卫星平分 360 度
+            const currentAngle = globalIndex * angleStep;
+
+            // 计算动画延迟（实现相同的角速度）
+            const startDelay = (currentAngle / 360) * globalDuration;
+
+            const group = document.createElement('div');
+            group.className = 'satellite-group';
+            group.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                animation: orbit-${className} ${globalDuration}s linear infinite;
+                animation-delay: -${startDelay}s;
+            `;
+
+            const sat = document.createElement('div');
+            sat.className = 'satellite';
+            sat.style.cssText = `
+                background: rgba(225, 242, 255, 0.4); 
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.8);
+                border: 1px solid rgba(255, 255, 255, 0.6);
+            `;
+
+            const label = document.createElement('div');
+            label.className = 'satellite-label';
+            label.textContent = heading;
+            label.style.color = '#74c0fc'; 
+            label.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.8)';
+
+            sat.appendChild(label);
+            group.appendChild(sat);
+            container.appendChild(group);
+
+            globalIndex++; // 递增全局索引
+        }
+    });
 }

@@ -272,7 +272,70 @@ body {
     height: 100%;
     object-fit: contain;
 }
+/* --- 轨道容器与轨道线保持不变 --- */
+.orbit-container {
+    position: relative;
+    width: 480px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(79, 172, 254, 0.35);
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.orbit-ring-1 { width: 376px; height: 376px; }
+.orbit-ring-2 { width: 496px; height: 496px; border-color: rgba(79, 172, 254, 0.2); }
+
+/* --- 卫星正圆容器 --- */
+/* --- 卫星正圆容器 --- */
+.satellite {
+    position: absolute;
+    aspect-ratio: 1 / 1; 
+    min-width: 42px;            /* 稍微加大，提升视觉存在感 */
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    white-space: nowrap;
+    
+    /* 核心修改：增加多重发光，使其更有质感 */
+    background: var(--accent-blue);
+    box-shadow: 
+        0 0 20px rgba(79, 172, 254, 0.4), 
+        inset 0 0 8px rgba(255, 255, 255, 0.3); /* 内部高光 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 卫星文字 --- */
+.satellite-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent-blue); /* 统一使用主题蓝 */
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* --- 旋转动画 (保持不变) --- */
+@keyframes orbit-orbit-ring-1 {
+    from { transform: rotate(0deg) translateX(188px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(188px) rotate(-360deg); }
+}
+@keyframes orbit-orbit-ring-2 {
+    from { transform: rotate(0deg) translateX(248px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(248px) rotate(-360deg); }
+}
 /* 全局弹窗 */
 .modal-overlay {
     position: fixed;

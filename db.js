@@ -9,7 +9,7 @@ const CONFIG = {
     // 弹幕系统
     barrageSpawnRate: 1200,            // 每次生成间隔 (ms)
     barrageOpacity: 0.2,               // 弹幕透明度 0-1
-    barrageFontSizeRange: { min: 0.9, max: 1.5 },   // rem
+    barrageFontSizeRange: { min: 0.9, max: 1.4 },   // rem
     barrageSpeedRange: { min: 10, max: 13 },           // 动画时长 (秒)
 };
 
@@ -68,6 +68,15 @@ const PROJECT_DB = [
         summary: "基于openhands sdk等完成的自动化博客撰写系统",
         path: "posts/blog-agent.md"
     }
+];
+
+// 一级标题（轨道小球上显示的文字）
+const HEADING_DB = [
+    'ANIMATION',
+    'AI',
+    'SJTU',
+    'CS',
+    'Chem'
 ];
 
 // 资源数据 (新增)
