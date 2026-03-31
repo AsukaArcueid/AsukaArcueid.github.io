@@ -2,10 +2,6 @@
 
 // === 全局配置 ===
 const CONFIG = {
-    // 状态栏
-    statusBarFontSize: '0.75rem',
-    statusBarLocation: '31.2397° N, 121.4998° E',  // 东方明珠塔
-
     // 弹幕系统
     barrageSpawnRate: 1200,            // 每次生成间隔 (ms)
     barrageOpacity: 0.2,               // 弹幕透明度 0-1

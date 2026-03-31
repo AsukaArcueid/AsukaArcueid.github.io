@@ -88,25 +88,19 @@ function initRouting() {
         screens.projects.classList.add('active-screen');
         renderProjects();
         document.title = "AsukaArcueid | Projects";
-        stopClock();
-        stopBarrage();
-        document.getElementById('status-bar').style.display = 'none';
+        stopHomepageEffects();
     }
     else if (hash === '#resources') {
         screens.resources.classList.add('active-screen');
         renderFilterBar();
         filterResources('All');
         document.title = "AsukaArcueid | Resources";
-        stopClock();
-        stopBarrage();
-        document.getElementById('status-bar').style.display = 'none';
+        stopHomepageEffects();
     }
     else if (hash === '#about') {
         screens.about.classList.add('active-screen');
         document.title = "AsukaArcueid | About";
-        stopClock();
-        stopBarrage();
-        document.getElementById('status-bar').style.display = 'none';
+        stopHomepageEffects();
         renderOrbitSatellites();
     }
     else {
@@ -116,6 +110,12 @@ function initRouting() {
         startBarrage();
         document.getElementById('status-bar').style.display = 'flex';
     }
+}
+
+function stopHomepageEffects() {
+    stopClock();
+    stopBarrage();
+    document.getElementById('status-bar').style.display = 'none';
 }
 
 // 统一导航接口
@@ -138,7 +138,7 @@ document.addEventListener('visibilitychange', () => {
         stopBarrage();
     } else if (window.location.hash === '' || window.location.hash === '#' || !window.location.hash) {
         // 仅在主页可见时，等待1秒后再重启弹幕
-        setTimeout(startBarrage, 300);
+        setTimeout(startBarrage, 100);
     }
 });
 

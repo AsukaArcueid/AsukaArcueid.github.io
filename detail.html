@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Detail | AsukaArcueid</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <style>
-        /* 1. 严格沿用主页定义的变量 */
-        :root { 
+        /* 1. 严格沿用主页定义的变量（与 style.css 保持一致） */
+        :root {
             --bg-light: #e0eafc;
             --bg-dark: #cfdef3;
             --accent-blue: #4facfe;
             --text-color: #2d3436;
             --glass-white: rgba(255, 255, 255, 0.6);
-            --code-bg: #1e1e1e; 
+            --code-bg: #1e1e1e;
         }
 
         /* 2. 背景设为与主页一致的渐变 */
@@ -42,13 +42,11 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* 4. BACK 按钮：与主页统一样式 */
+        /* 4. BACK 按钮：与主页统一样式（详见 style.css .back-btn） */
         .back-btn {
             position: fixed;
-            top: 30px;
-            left: 30px;
-            width: 120px;
-            height: 45px;
+            top: 30px; left: 30px;
+            width: 120px; height: 45px;
             background: var(--glass-white);
             backdrop-filter: blur(10px);
             border-radius: 50px;
@@ -56,22 +54,15 @@
             color: var(--text-color);
             font-family: 'Orbitron';
             font-size: 0.8rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
+            z-index: 100;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            transition: 0.3s;
         }
-
-        .back-btn:hover { 
-            background: white; 
-            color: var(--accent-blue); 
-            transform: translateY(-5px); /* 向上弹起 */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+        .back-btn:hover { background: white; color: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
         /* --- 验证正确的滚动条样式区 --- */
         #article-body pre {
@@ -127,6 +118,8 @@
         #article-body img { max-width: 100%; border-radius: 12px; margin: 30px auto; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         #article-body :not(pre) > code { background-color: #f0f2f5; color: #e06c75; padding: 2px 6px; border-radius: 4px; }
         .loading-tip { text-align: center; color: #999; padding: 50px; font-family: 'Orbitron'; }
+        .detail-title { font-family: 'Orbitron'; margin-bottom: 10px; }
+        .detail-meta { color: #888; margin-bottom: 40px; font-family: 'Orbitron'; font-size: 0.85em; }
     </style>
 </head>
 <body>
@@ -134,8 +127,8 @@
     <a href="index.html#projects" class="back-btn">← BACK</a>
 
     <div class="container">
-        <h1 id="title" style="font-family:'Orbitron'; margin-bottom:10px;">Loading...</h1>
-        <p id="meta" style="color:#888; margin-bottom:40px; font-family: 'Orbitron'; font-size: 0.85em;"></p>
+        <h1 id="title" class="detail-title">Loading...</h1>
+        <p id="meta" class="detail-meta"></p>
         
         <div id="article-body">
             <p class="loading-tip">INITIALIZING...</p>
