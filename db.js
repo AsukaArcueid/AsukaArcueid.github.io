@@ -62,7 +62,7 @@ const PROJECT_DB = [
         date: "2026-02-15",
         intro: "根据idea自动写博客的agent项目", 
         summary: "基于openhands sdk等完成的自动化博客撰写系统",
-        path: "posts/blog-agent.md"
+        path: "posts/blog_agent.md"
     }
 ];
 
