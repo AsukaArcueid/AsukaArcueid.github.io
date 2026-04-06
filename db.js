@@ -48,23 +48,39 @@ const BARRAGE_DB = [
 
 // === 项目数据 ===
 const PROJECT_DB = [
-    { 
-        id: 1, 
-        title: "Amadeus", 
+    {
+        id: 1,
+        title: "Amadeus",
         date: "2026-03-29",
-        intro: "命运石之门中的人工智能Amadeus", 
+        intro: "命运石之门中的人工智能Amadeus",
         summary: "利用对Qwen3-4B进行sft、RL以及agent框架实现一个Amadeus的效果",
         path: "posts/Amadeus.md"
     },
-    { 
-        id: 2, 
-        title: "Blog Agent", 
+    {
+        id: 2,
+        title: "Blog Agent",
         date: "2026-02-15",
-        intro: "根据idea自动写博客的agent项目", 
+        intro: "根据idea自动写博客的agent项目",
         summary: "基于openhands sdk等完成的自动化博客撰写系统",
         path: "posts/blog_agent.md"
     }
 ];
+
+// === 笔记数据 ===
+const NOTES_DB = [
+    {
+        id: 1,
+        title: "示例笔记",
+        date: "2026-04-01",
+        intro: "这是一条示例笔记，用来测试笔记页面是否正常工作。",
+        summary: "内容包括上课感悟、论文笔记等。",
+        path: "articles/example.md"
+    }
+];
+
+function getNoteById(id) {
+    return NOTES_DB.find(n => n.id == id);
+}
 
 // 一级标题（轨道小球上显示的文字）
 const HEADING_DB = [

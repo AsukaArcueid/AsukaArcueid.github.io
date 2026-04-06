@@ -76,6 +76,7 @@ function initRouting() {
     const screens = {
         home:     document.getElementById('home-screen'),
         projects: document.getElementById('projects-screen'),
+        notes:    document.getElementById('notes-screen'),
         resources:document.getElementById('resources-screen'),
         about:    document.getElementById('about-screen'),
     };
@@ -88,6 +89,12 @@ function initRouting() {
         screens.projects.classList.add('active-screen');
         renderProjects();
         document.title = "AsukaArcueid | Projects";
+        stopHomepageEffects();
+    }
+    else if (hash === '#notes') {
+        screens.notes.classList.add('active-screen');
+        renderNotes();
+        document.title = "AsukaArcueid | Notes";
         stopHomepageEffects();
     }
     else if (hash === '#resources') {
@@ -147,12 +154,27 @@ function renderProjects() {
     const grid = document.getElementById('projectGrid');
     if(!grid) return;
     grid.innerHTML = PROJECT_DB.map(p => `
-        <div class="project-card" onclick="location.href='detail.html?id=${p.id}'">
+        <div class="project-card" onclick="location.href='detail.html?id=${p.id}&type=project'">
             <h3>${p.title}</h3>
             <p>${p.intro}</p>
             <div class="project-content-preview">
                 <strong>技术细节：</strong><br>
                 ${p.summary}
+            </div>
+        </div>
+    `).join('');
+}
+
+// --- 渲染笔记 ---
+function renderNotes() {
+    const grid = document.getElementById('notesGrid');
+    if(!grid) return;
+    grid.innerHTML = NOTES_DB.map(n => `
+        <div class="project-card" onclick="location.href='detail.html?id=${n.id}&type=note'">
+            <h3>${n.title}</h3>
+            <p>${n.intro}</p>
+            <div class="project-content-preview">
+                ${n.summary}
             </div>
         </div>
     `).join('');

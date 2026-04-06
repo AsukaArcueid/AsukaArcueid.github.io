@@ -25,6 +25,7 @@
             <p class="sub-title">Breath of the Stars</p>
             <nav class="nav-layer">
                 <div class="nav-item" onclick="navigate('#projects')">项目 <span>PROJECTS</span></div>
+                <div class="nav-item" onclick="navigate('#notes')">笔记 <span>NOTES</span></div>
                 <div class="nav-item" onclick="navigate('#resources')">资源 <span>RESOURCES</span></div>
                 <div class="nav-item" onclick="navigate('#about')">关于 <span>ABOUT</span></div>
             </nav>
@@ -34,6 +35,11 @@
     <div id="projects-screen" class="screen">
         <button onclick="navigate('')" class="back-btn">← BACK</button>
         <div class="project-grid" id="projectGrid"></div>
+    </div>
+
+    <div id="notes-screen" class="screen">
+        <button onclick="navigate('')" class="back-btn">← BACK</button>
+        <div class="project-grid" id="notesGrid"></div>
     </div>
 
     <div id="resources-screen" class="screen">
