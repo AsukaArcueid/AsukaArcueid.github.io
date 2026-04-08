@@ -70,11 +70,11 @@ const PROJECT_DB = [
 const NOTES_DB = [
     {
         id: 1,
-        title: "示例笔记",
-        date: "2026-04-01",
-        intro: "这是一条示例笔记，用来测试笔记页面是否正常工作。",
-        summary: "内容包括上课感悟、论文笔记等。",
-        path: "articles/example.md"
+        title: "CS336作业1",
+        date: "2026-04-08",
+        intro: "CS336作业1的笔记",
+        summary: "内容包括assignment1中要完成的内容的一些总结与记录",
+        path: "articles/CS336作业1.md"
     }
 ];
 
