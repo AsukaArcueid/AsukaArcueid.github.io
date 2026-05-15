@@ -82,5 +82,15 @@ $$\text{KeepTopK}(v, k)_i = \begin{cases} v_i & \text{if } v_i \text{ is in the 
 增加这个噪声可以让expert变得更鲁棒，让它们拿到一些不太匹配的数据时也能输出比较合理的东西。同时也可以在训练初期增加一些随机性，让每个expert都分配到各种token，避免'强者恒强'导致一些有潜力的expert受不到训练。
 
 
-## 推理
+# Upcycling
+训练MoE时有一种较高效的方法是upcycling，即已经有了一个dense model，将它的FFN层复制N倍（并注入微小的随机噪声防止它们完全一样）变成MoE架构，然后在这个dense model权重基础之上再进行训练。
+
+
+# 推理
 推理时就是token根据router通过相应的experts，然后得到的结果根据router当时算出的匹配度加权得到FFN(x)，再加上输入，形成一个标准的残差连接即可。
+
+由于一个token可能被分到许多没什么规律的expert，计算方式没那么直观。比较常见的方法是把分到每个expert的所有token找出来拼在一起（同时维护一个索引、记录router给出的s），再将这个矩阵放进expert进行计算，expert输出后根据索引与s将顺序恢复并加权，得到结果。
+图为计算方法，常用block sparse matrix multiplication。
+![f5919c5e72ff64c1addbbdec03201023](../article_images/f5919c5e72ff64c1addbbdec03201023.png)
+
+同时值得指出的是，有时会**将不同的expert放在不同的硬件里**，这导致token被分到不同的expert时会有不同的communication cost。DeepSeek V2为了解决这个使用了**top-M device routing以及communication balancing loss**。也就是token先选硬件，选好硬件之后token只能被发到这几个硬件里的expert中去，同时用communication balancing loss平衡发到各硬件的token数，达到减少在传输上的损耗这一目的。
