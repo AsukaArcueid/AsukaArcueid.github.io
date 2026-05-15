@@ -247,6 +247,27 @@
 
     <script src="db.js"></script>
     <script>
+        // 核心：防止 marked 破坏 LaTeX 语法
+marked.use({
+    extensions: [{
+        name: 'math',
+        level: 'inline',
+        start: (src) => src.indexOf('$'),
+        tokenizer(src) {
+            const match = /^\$\$[\s\S]*?\$\$|^\$[^\n$]*?\$/.exec(src);
+            if (match) {
+                return {
+                    type: 'math',
+                    raw: match[0],
+                    text: match[0]
+                };
+            }
+        },
+        renderer(token) {
+            return token.text; // 原样输出，交给 KaTeX
+        }
+    }]
+});
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         const type = urlParams.get('type') || 'project';
@@ -266,17 +287,26 @@
                     return response.text();
                 })
                 .then(text => {
-                    document.getElementById('article-body').innerHTML = marked.parse(text);
-                    hljs.highlightAll();
-                    renderMathInElement(document.getElementById('article-body'), {
-                        delimiters: [
-                            {left: '$$', right: '$$', display: true},
-                            {left: '$', right: '$', display: false}
-                        ],
-                        throwOnError: false
-                    });
-                    generateTOC();
-                })
+    const articleBody = document.getElementById('article-body');
+    
+    // 1. 先用 marked 解析 Markdown（此时公式被扩展保护，不会变乱）
+    articleBody.innerHTML = marked.parse(text);
+    
+    // 2. 代码高亮
+    hljs.highlightAll();
+    
+    // 3. 此时再调用 KaTeX 渲染（公式是完整的，所以能正常渲染且居中）
+    renderMathInElement(articleBody, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+    });
+    
+    // 4. 最后生成目录（确保标题 ID 已经生成）
+    generateTOC();
+})
                 .catch(err => {
                     document.getElementById('article-body').innerHTML = `<p style="color:red; text-align:center;">错误: ${err.message}</p>`;
                 });
