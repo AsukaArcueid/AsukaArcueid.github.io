@@ -84,6 +84,14 @@ const NOTES_DB = [
         summary: "CS336第四课MoE架构的笔记",
         path: "articles/MoE架构.md"
     },
+    {
+        id: 3,
+        title: "CS336作业2",
+        date: "2026-05-18",
+        intro: "CS336作业2的笔记",
+        summary: "内容包括assignment2中要完成的内容的一些总结与记录",
+        path: "articles/CS336作业2.md"
+    },
 ];
 
 function getNoteById(id) {
